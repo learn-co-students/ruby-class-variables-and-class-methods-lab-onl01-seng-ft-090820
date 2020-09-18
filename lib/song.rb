@@ -1,3 +1,5 @@
+require 'pry'
+
 class Song
   attr_accessor :name, :artist, :genre 
   @@count = 0 
@@ -19,7 +21,7 @@ class Song
   end 
   
   def self.genres
-    self.genres.uniq 
+    @@genres.uniq 
   end 
   
   def self.artists
@@ -27,12 +29,16 @@ class Song
   end 
   
   def self.genre_count
-    @@genres.genre_count
+    genre_count = Hash.new(0)
+    @@genres.each {|genre| genre_count[genre] += 1}
+    genre_count
   end
   
   def self.artist_count
-    @@artists.artist_count
-  end 
+    artist_count = Hash.new(0)
+    @@artists.each {|artist| artist_count[artist] += 1}
+    artist_count
+  end
 end 
 
 
