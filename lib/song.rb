@@ -1,40 +1,38 @@
-
 class Song
-
   attr_accessor :name, :artist, :genre
 
-  @@song_count = 0
+  @@count = 0
   @@genres = []
   @@artists = []
 
-  def initialize(name, artist, genre)
-    @name = name
+  def initialize(song_name, artist, genre)
+    @name = song_name
     @artist = artist
     @genre = genre
-    @@genres << @genre
-    @@artists << @artist
-    @@song_count +=1
+    @@count += 1
+    @@genres << genre
+    @@artists << artist
   end
 
   def self.count
-    @@song_count
+    @@count
   end
 
   def self.genres
-    @@genres.uniq
+    @@genres.uniq!
   end
 
   def self.artists
-    @@artists.uniq
+    @@artists.uniq!
   end
 
   def self.genre_count
     genre_count = {}
-    @@genres.each do |genre| 
-      if genre_count[genre]
-      genre_count[genre] += 1 
-      else
-      genre_count[genre] = 1
+    @@genres.each do |genre|
+      if genre_count[genre] 
+        genre_count[genre] += 1
+      else #if it's a new genre
+        genre_count[genre] = 1
       end
     end
     genre_count
@@ -43,21 +41,12 @@ class Song
   def self.artist_count
     artist_count = {}
     @@artists.each do |artist|
-      if artist_count[artist]
-      artist_count[artist] +=1
+      if artist_count[artist] #if the artist is already in the hash
+        artist_count[artist] += 1
       else
-      artist_count[artist] = 1
+        artist_count[artist] = 1
       end
     end
     artist_count
   end
-
 end
-
-ninety_nine_problems = Song.new("99 Problems", "Jay-Z", "Rap")
-mask_off = Song.new("Mask Off", "Future", "Rap")
-dance_macabre = Song.new("Dance Macabre", "Ghost", "Metal")
-if_you_have_ghosts = Song.new("If You Have Ghosts", "Ghost", "Metal")
-Song.genres
-p Song.artist_count
-p Song.genre_count
